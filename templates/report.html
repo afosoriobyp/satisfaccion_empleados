@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="card mb-4 bg-light" data-html2canvas-ignore="true">
+    <div class="card-body py-3">
+        <form action="/informe" method="GET" class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label fw-bold">📅 Fecha Inicio:</label>
+                <input type="date" name="start_date" class="form-control" value="{{ start_date or '' }}">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-bold">📅 Fecha Fin:</label>
+                <input type="date" name="end_date" class="form-control" value="{{ end_date or '' }}">
+            </div>
+            <div class="col-md-4 d-flex gap-2">
+                <button type="submit" class="btn btn-primary flex-grow-1">Filtrar Resultados</button>
+                <a href="/informe" class="btn btn-outline-secondary">Limpiar</a>
+                <button type="button" onclick="generatePDF()" class="btn btn-danger">
+                    📄 PDF
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="export-content" class="p-3 bg-white">
+    
+    <div class="text-center mb-4">
+        <h4>Reporte de Clima Laboral</h4>
+        <p class="text-muted mb-0">
+            Periodo: 
+            {% if start_date %}Desde {{ start_date }}{% else %}Inicio{% endif %} 
+            hasta 
+            {% if end_date %}{{ end_date }}{% else %}Hoy{% endif %}
+        </p>
+        <small class="text-muted">Generado el: <span id="fecha-hoy"></span></small>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-3">
+            <div class="card text-white bg-success mb-3 h-100">
+                <div class="card-header text-center">Feliz 😄</div>
+                <div class="card-body text-center">
+                    <h2 class="card-title display-4">{{ stats.feliz }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card text-white bg-info mb-3 h-100">
+                <div class="card-header text-center">Normal 😐</div>
+                <div class="card-body text-center">
+                    <h2 class="card-title display-4">{{ stats.normal }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card text-white bg-warning mb-3 h-100">
+                <div class="card-header text-center">Triste 😢</div>
+                <div class="card-body text-center">
+                    <h2 class="card-title display-4">{{ stats.triste }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card text-white bg-danger mb-3 h-100">
+                <div class="card-header text-center">Molesto 😡</div>
+                <div class="card-body text-center">
+                    <h2 class="card-title display-4">{{ stats.rabia }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <h4 class="mb-4 mt-4">Análisis de Causas (Diagrama de Ishikawa)</h4>
+    
+    <div class="ishikawa-container border p-4 bg-white position-relative" style="min-height: 500px;">
+        <div class="position-absolute top-50 start-0 w-75 border-bottom border-5 border-dark"></div>
+        <div class="position-absolute top-50 end-0 translate-middle-y bg-danger text-white p-3 rounded text-center" style="width: 22%; border: 2px solid #333;">
+            <h6 class="m-0">BAJA<br>SATISFACCIÓN</h6>
+        </div>
+
+        <div class="row h-100">
+            <div class="col-6 mb-5 position-relative" style="height: 200px;">
+                <div class="border-start border-3 border-dark h-100 position-absolute start-50 translate-middle-x" style="transform: rotate(45deg); top: 25px;"></div>
+                <h6 class="text-center bg-primary text-white rounded p-1 mx-auto w-50 position-relative" style="z-index: 2;">PERSONAL</h6>
+                <ul class="list-group list-group-flush small mt-2 mx-auto w-75 bg-transparent">
+                    {% for item in ishikawa.Personal %}
+                        <li class="list-group-item bg-transparent py-1 border-0 text-danger">• {{ item }}</li>
+                    {% else %}
+                        <li class="list-group-item bg-transparent py-1 border-0 text-muted fst-italic">-</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-6 mb-5 position-relative" style="height: 200px;">
+                <div class="border-start border-3 border-dark h-100 position-absolute start-50 translate-middle-x" style="transform: rotate(-45deg); top: 25px;"></div>
+                <h6 class="text-center bg-primary text-white rounded p-1 mx-auto w-50 position-relative" style="z-index: 2;">PROCESOS</h6>
+                <ul class="list-group list-group-flush small mt-2 mx-auto w-75 bg-transparent">
+                    {% for item in ishikawa.Procesos %}
+                        <li class="list-group-item bg-transparent py-1 border-0 text-danger">• {{ item }}</li>
+                    {% else %}
+                        <li class="list-group-item bg-transparent py-1 border-0 text-muted fst-italic">-</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="w-100" style="height: 20px;"></div>
+            <div class="col-6 mt-4 position-relative" style="height: 200px;">
+                <div class="border-start border-3 border-dark h-100 position-absolute start-50 translate-middle-x" style="transform: rotate(-45deg); bottom: 25px;"></div>
+                <h6 class="text-center bg-primary text-white rounded p-1 mx-auto w-50 position-relative" style="z-index: 2;">TECNOLOGÍA</h6>
+                <ul class="list-group list-group-flush small mt-2 mx-auto w-75 bg-transparent">
+                    {% for item in ishikawa.Tecnologia %}
+                        <li class="list-group-item bg-transparent py-1 border-0 text-danger">• {{ item }}</li>
+                    {% else %}
+                        <li class="list-group-item bg-transparent py-1 border-0 text-muted fst-italic">-</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-6 mt-4 position-relative" style="height: 200px;">
+                <div class="border-start border-3 border-dark h-100 position-absolute start-50 translate-middle-x" style="transform: rotate(45deg); bottom: 25px;"></div>
+                <h6 class="text-center bg-primary text-white rounded p-1 mx-auto w-50 position-relative" style="z-index: 2;">AMBIENTE</h6>
+                <ul class="list-group list-group-flush small mt-2 mx-auto w-75 bg-transparent">
+                    {% for item in ishikawa.Ambiente %}
+                        <li class="list-group-item bg-transparent py-1 border-0 text-danger">• {{ item }}</li>
+                    {% else %}
+                        <li class="list-group-item bg-transparent py-1 border-0 text-muted fst-italic">-</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+    document.getElementById('fecha-hoy').innerText = new Date().toLocaleDateString();
+
+    function generatePDF() {
+        const element = document.getElementById('export-content');
+        const opt = {
+            margin:       0.3,
+            filename:     'informe_filtrado_ishikawa.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, logging: true, useCORS: true },
+            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(element).save();
+    }
+</script>
+{% endblock %}
