@@ -33,9 +33,20 @@ with app.app_context():
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        level = request.form['level']
-        category = request.form['category']
-        comment = request.form['comment']
+        print("=== DEBUG: Datos del formulario ===")
+        print(f"Form data: {request.form}")
+        print(f"Level: {request.form.get('level')}")
+        print(f"Category: {request.form.get('category')}")
+        print(f"Comment: {request.form.get('comment')}")
+        print("===================================")
+        
+        level = request.form.get('level', '')
+        category = request.form.get('category', 'N/A')
+        comment = request.form.get('comment', '')
+        
+        # Si no hay categoría (emociones positivas/neutras), usar 'N/A'
+        if not category or category == '':
+            category = 'N/A'
 
         new_feedback = Feedback(level=level, category=category, comment=comment)
 
@@ -104,4 +115,4 @@ def informe():
                            end_date=end_date_str)
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(host='0.0.0.0', port=port, debug=True)

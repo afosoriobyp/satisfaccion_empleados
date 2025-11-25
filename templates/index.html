@@ -6,6 +6,9 @@
         <h3 class="card-title mb-4">¿Cómo te sientes hoy en el trabajo?</h3>
         
         <form action="/" method="POST">
+            <!-- Campo oculto para garantizar que category siempre se envíe -->
+            <input type="hidden" name="category" id="hidden-category" value="N/A">
+            
             <div class="emoji-container d-flex justify-content-around mb-4">
                 
                 <label class="emoji-option">
@@ -35,7 +38,7 @@
 
             <div id="category-section" class="mb-3 text-start d-none">
                 <label class="form-label fw-bold">¿Cuál crees que es la causa raíz?</label>
-                <select name="category" class="form-select">
+                <select name="category-visible" id="category-select" class="form-select">
                     <option value="" selected disabled>Selecciona una causa...</option>
                     <option value="Personal">Personal / RRHH (Salarios, compañeros)</option>
                     <option value="Procesos">Procesos / Métodos (Burocracia, reglas)</option>
@@ -54,17 +57,30 @@
 </div>
 
 <script>
-    // Script simple para mostrar la categoría solo si es negativo
+    // Script para mostrar/ocultar la categoría y sincronizar valores
     function toggleCategory(show) {
         const section = document.getElementById('category-section');
+        const selectElement = document.getElementById('category-select');
+        const hiddenCategory = document.getElementById('hidden-category');
+        
         if(show) {
+            // Mostrar selector para emociones negativas
             section.classList.remove('d-none');
-            section.querySelector('select').required = true;
+            selectElement.required = true;
+            // NO desactivar el campo oculto, solo cambiar su valor
         } else {
+            // Ocultar selector para emociones positivas/neutras
             section.classList.add('d-none');
-            section.querySelector('select').required = false;
-            section.querySelector('select').value = "";
+            selectElement.required = false;
+            selectElement.value = "";
+            // Asegurar que el campo oculto tenga N/A
+            hiddenCategory.value = "N/A";
         }
     }
+    
+    // Sincronizar el select visible con el campo oculto cuando cambie
+    document.getElementById('category-select').addEventListener('change', function() {
+        document.getElementById('hidden-category').value = this.value;
+    });
 </script>
 {% endblock %}
