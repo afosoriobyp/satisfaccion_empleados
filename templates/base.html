@@ -8,19 +8,26 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body class="bg-light">
-    <nav class="navbar navbar-dark bg-primary mb-4">
+    <nav class="navbar navbar-dark mb-4" 
+        style="background: linear-gradient(135deg, #28a745, #ffc107); padding: 5px;">
         <div class="container">
-            <a class="navbar-brand" href="/">😊 Clima Laboral</a>
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <img src="{{ url_for('static', filename='img/logo_new.png') }}" alt="logo_new" width="150" height="80" class="me-3">
+                <h3 class="mb-0">Mi Emoci&oacute;n Cuenta</h3>
+            </a>
             <a class="btn btn-light btn-sm" href="/informe">Ver Informe</a>
         </div>
     </nav>
 
     <div class="container text-center">
         {% if content %}
-            {{ content | safe }}
+            {{ content | safe }}    
         {% else %}
             {% block body %}{% endblock %}
         {% endif %}
     </div>
+    <footer class="text-center py-3 mt-4" style="background-color: #28a745; color: white;">
+        &copy; 2025 Municipio de Roldanillo. Todos los derechos reservados.
+    </footer>
 </body>
 </html>

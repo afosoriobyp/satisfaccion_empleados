@@ -88,23 +88,38 @@ def informe():
     feedbacks = query.all()
     
     # 4. Recalcular estadísticas BASADAS EN LOS DATOS FILTRADOS
-    # Nota: Ya no usamos Feedback.query.count() directo, sino contamos la lista filtrada 'feedbacks'
     stats = {
-        'feliz': sum(1 for f in feedbacks if f.level == 'feliz'),
-        'normal': sum(1 for f in feedbacks if f.level == 'normal'),
-        'triste': sum(1 for f in feedbacks if f.level == 'triste'),
-        'rabia': sum(1 for f in feedbacks if f.level == 'rabia'),
+        'miedo': sum(1 for f in feedbacks if f.level == 'miedo'),
+        'furia': sum(1 for f in feedbacks if f.level == 'furia'),
+        'tristeza': sum(1 for f in feedbacks if f.level == 'tristeza'),
+        'desagrado': sum(1 for f in feedbacks if f.level == 'desagrado'),
+        'alegria': sum(1 for f in feedbacks if f.level == 'alegria'),
     }
     
-    # 5. Filtrar datos para Ishikawa
+    # 5. Filtrar datos para Ishikawa - Nuevas categorías
     ishikawa_data = {
-        'Personal': [], 'Procesos': [], 'Tecnologia': [], 'Ambiente': []
+        'Sobrecarga': [],
+        'Reconocimiento': [],
+        'Comunicacion': [],
+        'Recursos': [],
+        'Ambiente': [],
+        'Inseguridad': [],
+        'Desarrollo': [],
+        'Liderazgo': []
     }
     
     for f in feedbacks:
-        if f.level in ['triste', 'rabia'] and f.category in ishikawa_data:
-            # Agregamos la fecha al comentario para contexto
-            comentario_con_fecha = f"{f.comment or 'Sin comentario'} ({f.date.strftime('%d/%m')})"
+        # Solo incluir emociones negativas
+        if f.level in ['miedo', 'furia', 'tristeza', 'desagrado'] and f.category in ishikawa_data:
+            # Agregamos la emoción y fecha al comentario para contexto
+            emociones_emoji = {
+                'miedo': '😨',
+                'furia': '😡',
+                'tristeza': '😢',
+                'desagrado': '🤢'
+            }
+            emoji = emociones_emoji.get(f.level, '')
+            comentario_con_fecha = f"{emoji} {f.comment or 'Sin comentario'} ({f.date.strftime('%d/%m')})"
             ishikawa_data[f.category].append(comentario_con_fecha)
 
     # Pasamos las fechas originales para mantenerlas en los inputs del HTML

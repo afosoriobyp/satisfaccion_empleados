@@ -38,35 +38,43 @@
     </div>
 
     <div class="row mb-5">
-        <div class="col-3">
-            <div class="card text-white bg-success mb-3 h-100">
-                <div class="card-header text-center">Feliz 😄</div>
+        <div class="col">
+            <div class="card text-white mb-3 h-100" style="background-color: #9370DB;">
+                <div class="card-header text-center">Miedo 😨</div>
                 <div class="card-body text-center">
-                    <h2 class="card-title display-4">{{ stats.feliz }}</h2>
+                    <h2 class="card-title display-4">{{ stats.miedo }}</h2>
                 </div>
             </div>
         </div>
-        <div class="col-3">
-            <div class="card text-white bg-info mb-3 h-100">
-                <div class="card-header text-center">Normal 😐</div>
+        <div class="col">
+            <div class="card text-white mb-3 h-100" style="background-color: #E74C3C;">
+                <div class="card-header text-center">Furia 😡</div>
                 <div class="card-body text-center">
-                    <h2 class="card-title display-4">{{ stats.normal }}</h2>
+                    <h2 class="card-title display-4">{{ stats.furia }}</h2>
                 </div>
             </div>
         </div>
-        <div class="col-3">
-            <div class="card text-white bg-warning mb-3 h-100">
-                <div class="card-header text-center">Triste 😢</div>
+        <div class="col">
+            <div class="card text-white mb-3 h-100" style="background-color: #3498DB;">
+                <div class="card-header text-center">Tristeza 😢</div>
                 <div class="card-body text-center">
-                    <h2 class="card-title display-4">{{ stats.triste }}</h2>
+                    <h2 class="card-title display-4">{{ stats.tristeza }}</h2>
                 </div>
             </div>
         </div>
-        <div class="col-3">
-            <div class="card text-white bg-danger mb-3 h-100">
-                <div class="card-header text-center">Molesto 😡</div>
+        <div class="col">
+            <div class="card text-white mb-3 h-100" style="background-color: #2ECC71;">
+                <div class="card-header text-center">Desagrado 🤢</div>
                 <div class="card-body text-center">
-                    <h2 class="card-title display-4">{{ stats.rabia }}</h2>
+                    <h2 class="card-title display-4">{{ stats.desagrado }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white mb-3 h-100" style="background-color: #F1C40F;">
+                <div class="card-header text-center">Alegría 😄</div>
+                <div class="card-body text-center">
+                    <h2 class="card-title display-4">{{ stats.alegria }}</h2>
                 </div>
             </div>
         </div>
@@ -83,46 +91,90 @@
         </div>
 
         <div class="row h-100">
-            <div class="col-6 mb-5 position-relative" style="height: 200px;">
+            <div class="col-6 mb-4 position-relative" style="height: 180px;">
                 <div class="border-start border-3 border-dark h-100 position-absolute start-50 translate-middle-x" style="transform: rotate(45deg); top: 25px;"></div>
-                <h6 class="text-center bg-primary text-white rounded p-1 mx-auto w-50 position-relative" style="z-index: 2;">PERSONAL</h6>
+                <h6 class="text-center bg-danger text-white rounded p-1 mx-auto w-75 position-relative" style="z-index: 2; font-size: 0.85rem;">SOBRECARGA</h6>
                 <ul class="list-group list-group-flush small mt-2 mx-auto w-75 bg-transparent">
-                    {% for item in ishikawa.Personal %}
-                        <li class="list-group-item bg-transparent py-1 border-0 text-danger">• {{ item }}</li>
+                    {% for item in ishikawa.Sobrecarga %}
+                        <li class="list-group-item bg-transparent py-1 border-0 text-danger" style="font-size: 0.75rem;">• {{ item }}</li>
                     {% else %}
                         <li class="list-group-item bg-transparent py-1 border-0 text-muted fst-italic">-</li>
                     {% endfor %}
                 </ul>
             </div>
-            <div class="col-6 mb-5 position-relative" style="height: 200px;">
+            <div class="col-6 mb-4 position-relative" style="height: 180px;">
                 <div class="border-start border-3 border-dark h-100 position-absolute start-50 translate-middle-x" style="transform: rotate(-45deg); top: 25px;"></div>
-                <h6 class="text-center bg-primary text-white rounded p-1 mx-auto w-50 position-relative" style="z-index: 2;">PROCESOS</h6>
+                <h6 class="text-center bg-warning text-white rounded p-1 mx-auto w-75 position-relative" style="z-index: 2; font-size: 0.85rem;">RECONOCIMIENTO</h6>
                 <ul class="list-group list-group-flush small mt-2 mx-auto w-75 bg-transparent">
-                    {% for item in ishikawa.Procesos %}
-                        <li class="list-group-item bg-transparent py-1 border-0 text-danger">• {{ item }}</li>
+                    {% for item in ishikawa.Reconocimiento %}
+                        <li class="list-group-item bg-transparent py-1 border-0 text-danger" style="font-size: 0.75rem;">• {{ item }}</li>
+                    {% else %}
+                        <li class="list-group-item bg-transparent py-1 border-0 text-muted fst-italic">-</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-6 mb-4 position-relative" style="height: 180px;">
+                <div class="border-start border-3 border-dark h-100 position-absolute start-50 translate-middle-x" style="transform: rotate(45deg); top: 25px;"></div>
+                <h6 class="text-center bg-info text-white rounded p-1 mx-auto w-75 position-relative" style="z-index: 2; font-size: 0.85rem;">COMUNICACIÓN</h6>
+                <ul class="list-group list-group-flush small mt-2 mx-auto w-75 bg-transparent">
+                    {% for item in ishikawa.Comunicacion %}
+                        <li class="list-group-item bg-transparent py-1 border-0 text-danger" style="font-size: 0.75rem;">• {{ item }}</li>
+                    {% else %}
+                        <li class="list-group-item bg-transparent py-1 border-0 text-muted fst-italic">-</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-6 mb-4 position-relative" style="height: 180px;">
+                <div class="border-start border-3 border-dark h-100 position-absolute start-50 translate-middle-x" style="transform: rotate(-45deg); top: 25px;"></div>
+                <h6 class="text-center bg-secondary text-white rounded p-1 mx-auto w-75 position-relative" style="z-index: 2; font-size: 0.85rem;">RECURSOS</h6>
+                <ul class="list-group list-group-flush small mt-2 mx-auto w-75 bg-transparent">
+                    {% for item in ishikawa.Recursos %}
+                        <li class="list-group-item bg-transparent py-1 border-0 text-danger" style="font-size: 0.75rem;">• {{ item }}</li>
                     {% else %}
                         <li class="list-group-item bg-transparent py-1 border-0 text-muted fst-italic">-</li>
                     {% endfor %}
                 </ul>
             </div>
             <div class="w-100" style="height: 20px;"></div>
-            <div class="col-6 mt-4 position-relative" style="height: 200px;">
+            <div class="col-6 mt-2 position-relative" style="height: 180px;">
                 <div class="border-start border-3 border-dark h-100 position-absolute start-50 translate-middle-x" style="transform: rotate(-45deg); bottom: 25px;"></div>
-                <h6 class="text-center bg-primary text-white rounded p-1 mx-auto w-50 position-relative" style="z-index: 2;">TECNOLOGÍA</h6>
+                <h6 class="text-center bg-success text-white rounded p-1 mx-auto w-75 position-relative" style="z-index: 2; font-size: 0.85rem;">AMBIENTE</h6>
                 <ul class="list-group list-group-flush small mt-2 mx-auto w-75 bg-transparent">
-                    {% for item in ishikawa.Tecnologia %}
-                        <li class="list-group-item bg-transparent py-1 border-0 text-danger">• {{ item }}</li>
+                    {% for item in ishikawa.Ambiente %}
+                        <li class="list-group-item bg-transparent py-1 border-0 text-danger" style="font-size: 0.75rem;">• {{ item }}</li>
                     {% else %}
                         <li class="list-group-item bg-transparent py-1 border-0 text-muted fst-italic">-</li>
                     {% endfor %}
                 </ul>
             </div>
-            <div class="col-6 mt-4 position-relative" style="height: 200px;">
+            <div class="col-6 mt-2 position-relative" style="height: 180px;">
                 <div class="border-start border-3 border-dark h-100 position-absolute start-50 translate-middle-x" style="transform: rotate(45deg); bottom: 25px;"></div>
-                <h6 class="text-center bg-primary text-white rounded p-1 mx-auto w-50 position-relative" style="z-index: 2;">AMBIENTE</h6>
+                <h6 class="text-center bg-dark text-white rounded p-1 mx-auto w-75 position-relative" style="z-index: 2; font-size: 0.85rem;">INSEGURIDAD</h6>
                 <ul class="list-group list-group-flush small mt-2 mx-auto w-75 bg-transparent">
-                    {% for item in ishikawa.Ambiente %}
-                        <li class="list-group-item bg-transparent py-1 border-0 text-danger">• {{ item }}</li>
+                    {% for item in ishikawa.Inseguridad %}
+                        <li class="list-group-item bg-transparent py-1 border-0 text-danger" style="font-size: 0.75rem;">• {{ item }}</li>
+                    {% else %}
+                        <li class="list-group-item bg-transparent py-1 border-0 text-muted fst-italic">-</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-6 mt-2 position-relative" style="height: 180px;">
+                <div class="border-start border-3 border-dark h-100 position-absolute start-50 translate-middle-x" style="transform: rotate(-45deg); bottom: 25px;"></div>
+                <h6 class="text-center text-white rounded p-1 mx-auto w-75 position-relative" style="z-index: 2; font-size: 0.85rem; background-color: #9370DB;">DESARROLLO</h6>
+                <ul class="list-group list-group-flush small mt-2 mx-auto w-75 bg-transparent">
+                    {% for item in ishikawa.Desarrollo %}
+                        <li class="list-group-item bg-transparent py-1 border-0 text-danger" style="font-size: 0.75rem;">• {{ item }}</li>
+                    {% else %}
+                        <li class="list-group-item bg-transparent py-1 border-0 text-muted fst-italic">-</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-6 mt-2 position-relative" style="height: 180px;">
+                <div class="border-start border-3 border-dark h-100 position-absolute start-50 translate-middle-x" style="transform: rotate(45deg); bottom: 25px;"></div>
+                <h6 class="text-center text-white rounded p-1 mx-auto w-75 position-relative" style="z-index: 2; font-size: 0.85rem; background-color: #E67E22;">LIDERAZGO</h6>
+                <ul class="list-group list-group-flush small mt-2 mx-auto w-75 bg-transparent">
+                    {% for item in ishikawa.Liderazgo %}
+                        <li class="list-group-item bg-transparent py-1 border-0 text-danger" style="font-size: 0.75rem;">• {{ item }}</li>
                     {% else %}
                         <li class="list-group-item bg-transparent py-1 border-0 text-muted fst-italic">-</li>
                     {% endfor %}

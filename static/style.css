@@ -3,25 +3,91 @@
     display: none;
 }
 
-/* Estilo base de la cara */
+/* Estilo base para el contenedor de cada emoción */
+.emoji-option {
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+/* Estilo base de la cara (emoji) */
 .emoji-option .face {
     font-size: 3.5rem;
     cursor: pointer;
     transition: transform 0.2s, filter 0.2s;
     display: block;
-    filter: grayscale(80%); /* Apagado por defecto */
+    filter: grayscale(80%);
 }
 
-/* Al pasar el mouse */
-.emoji-option:hover .face {
+/* Estilo para las imágenes de Intensamente */
+.emoji-option .emotion-img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.2s, filter 0.2s;
+    display: block;
+    filter: grayscale(60%) brightness(0.8);
+}
+
+/* Al pasar el mouse - mostrar borde de color */
+.emotion-miedo:hover {
+    border-color: #9370DB;
+}
+
+.emotion-furia:hover {
+    border-color: #E74C3C;
+}
+
+.emotion-tristeza:hover {
+    border-color: #3498DB;
+}
+
+.emotion-desagrado:hover {
+    border-color: #2ECC71;
+}
+
+.emotion-alegria:hover {
+    border-color: #F1C40F;
+}
+
+.emoji-option:hover .face,
+.emoji-option:hover .emotion-img {
     transform: scale(1.1);
-    filter: grayscale(0%);
+    filter: grayscale(0%) brightness(1);
 }
 
-/* Cuando el radio button está seleccionado (checked) */
-.emoji-option input[type="radio"]:checked + .face {
-    transform: scale(1.3);
-    filter: grayscale(0%);
+/* Cuando está seleccionado - borde brillante con sombra de color */
+.emotion-miedo:has(input[type="radio"]:checked) {
+    border-color: #9370DB;
+    box-shadow: 0 0 10px rgba(147, 112, 219, 0.5);
+}
+
+.emotion-furia:has(input[type="radio"]:checked) {
+    border-color: #E74C3C;
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+}
+
+.emotion-tristeza:has(input[type="radio"]:checked) {
+    border-color: #3498DB;
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+}
+
+.emotion-desagrado:has(input[type="radio"]:checked) {
+    border-color: #2ECC71;
+    box-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+}
+
+.emotion-alegria:has(input[type="radio"]:checked) {
+    border-color: #F1C40F;
+    box-shadow: 0 0 10px rgba(241, 196, 15, 0.5);
+}
+
+.emoji-option:has(input[type="radio"]:checked) .face,
+.emoji-option:has(input[type="radio"]:checked) .emotion-img {
+    transform: scale(1.2);
+    filter: grayscale(0%) brightness(1);
 }
 
 .label-text {

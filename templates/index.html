@@ -3,7 +3,7 @@
 {% block body %}
 <div class="card shadow mx-auto" style="max-width: 600px;">
     <div class="card-body">
-        <h3 class="card-title mb-4">¿Cómo te sientes hoy en el trabajo?</h3>
+        <h3 class="card-title mb-4">¿Mi emoción del d&iacute;a es?</h3>
         
         <form action="/" method="POST">
             <!-- Campo oculto para garantizar que category siempre se envíe -->
@@ -11,39 +11,55 @@
             
             <div class="emoji-container d-flex justify-content-around mb-4">
                 
-                <label class="emoji-option">
-                    <input type="radio" name="level" value="rabia" required onclick="toggleCategory(true)">
-                    <span class="face">😡</span>
-                    <div class="label-text">Molesto</div>
+                <label class="emoji-option emotion-miedo">
+                    <input type="radio" name="level" value="miedo" required onclick="toggleCategory(true)">
+                    <img src="{{ url_for('static', filename='img/miedo.png') }}" alt="Miedo" class="emotion-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="face" style="display:none;">😨</span>
+                    <div class="label-text">Miedo</div>
                 </label>
 
-                <label class="emoji-option">
-                    <input type="radio" name="level" value="triste" onclick="toggleCategory(true)">
-                    <span class="face">😢</span>
-                    <div class="label-text">Triste</div>
+                <label class="emoji-option emotion-furia">
+                    <input type="radio" name="level" value="furia" onclick="toggleCategory(true)">
+                    <img src="{{ url_for('static', filename='img/furia.png') }}" alt="Furia" class="emotion-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="face" style="display:none;">😡</span>
+                    <div class="label-text">Furia</div>
                 </label>
 
-                <label class="emoji-option">
-                    <input type="radio" name="level" value="normal" onclick="toggleCategory(false)">
-                    <span class="face">😐</span>
-                    <div class="label-text">Normal</div>
+                <label class="emoji-option emotion-tristeza">
+                    <input type="radio" name="level" value="tristeza" onclick="toggleCategory(true)">
+                    <img src="{{ url_for('static', filename='img/tristeza.png') }}" alt="Tristeza" class="emotion-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="face" style="display:none;">😢</span>
+                    <div class="label-text">Tristeza</div>
+                </label>
+                
+                <label class="emoji-option emotion-desagrado">
+                    <input type="radio" name="level" value="desagrado" onclick="toggleCategory(true)">
+                    <img src="{{ url_for('static', filename='img/desagrado.png') }}" alt="Desagrado" class="emotion-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="face" style="display:none;">🤢</span>
+                    <div class="label-text">Desagrado</div>
+                </label>
+                
+                <label class="emoji-option emotion-alegria">
+                    <input type="radio" name="level" value="alegria" onclick="toggleCategory(false)">
+                    <img src="{{ url_for('static', filename='img/alegria.png') }}" alt="Alegría" class="emotion-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="face" style="display:none;">😄</span>
+                    <div class="label-text">Alegría</div>
                 </label>
 
-                <label class="emoji-option">
-                    <input type="radio" name="level" value="feliz" onclick="toggleCategory(false)">
-                    <span class="face">😄</span>
-                    <div class="label-text">Feliz</div>
-                </label>
             </div>
 
             <div id="category-section" class="mb-3 text-start d-none">
                 <label class="form-label fw-bold">¿Cuál crees que es la causa raíz?</label>
                 <select name="category-visible" id="category-select" class="form-select">
                     <option value="" selected disabled>Selecciona una causa...</option>
-                    <option value="Personal">Personal / RRHH (Salarios, compañeros)</option>
-                    <option value="Procesos">Procesos / Métodos (Burocracia, reglas)</option>
-                    <option value="Tecnologia">Tecnología / Equipos (Computadores, internet)</option>
-                    <option value="Ambiente">Ambiente / Infraestructura (Ruido, oficina)</option>
+                    <option value="Sobrecarga">Sobrecarga de trabajo / Presión excesiva</option>
+                    <option value="Reconocimiento">Falta de reconocimiento / Valoración</option>
+                    <option value="Comunicacion">Problemas de comunicación / Conflictos</option>
+                    <option value="Recursos">Falta de recursos / Herramientas inadecuadas</option>
+                    <option value="Ambiente">Ambiente laboral negativo / Tóxico</option>
+                    <option value="Inseguridad">Inseguridad laboral / Incertidumbre</option>
+                    <option value="Desarrollo">Falta de desarrollo / Oportunidades</option>
+                    <option value="Liderazgo">Problemas con liderazgo / Gestión</option>
                 </select>
             </div>
 
